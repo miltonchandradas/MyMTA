@@ -1,0 +1,31 @@
+ID: MyMTA
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: MyDB
+   type: hdb
+   path: MyDB
+   requires:
+    - name: hdi_MyDB
+
+
+ - name: MyNodeJs
+   type: nodejs
+   path: MyNodeJs
+   provides:
+    - name: MyNodeJs_api
+      properties:
+         url: ${default-url}
+   requires:
+    - name: MyDB
+    - name: hdi_MyDB
+
+resources:
+ - name: hdi_MyDB
+   parameters:
+      config:
+         schema: MyDB
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container

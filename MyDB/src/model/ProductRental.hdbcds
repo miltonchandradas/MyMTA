@@ -1,0 +1,16 @@
+type MyString50 : String(50);
+type MyString100 : String(100);
+
+entity "User" {
+	key id : Integer generated always as identity;
+	firstName : MyString50 not null;
+	lastName : MyString50 not null;
+	email : MyString50 not null;
+	password: MyString100 not null;
+	formattedAddress: MyString100;
+	coordinates : hana.ST_POINT(4326) null;
+	isochrone5mCar :  hana.ST_GEOMETRY(4326) null;
+} technical configuration {
+	column store;
+	unique index MyIndex on (email) asc;
+};
